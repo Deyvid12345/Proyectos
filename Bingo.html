@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Refr&aacute;</title>
+</head>
+<body>
+  
+   <script>
+       var cadena,cadena2, indices, indices;
+       var myvar, i;
+       
+       function aleatorio(min, max) {
+          var n;
+          n = Math.random() * (max - min) + min;
+          n = Math.round(n);
+          return n;
+       }       
+       
+       function indices_aleatorios(longitud){
+           var x, auxiliar;
+           var n, indices=[], auxiliar = new Array(longitud);  
+           for (x=0; x<longitud;x++){
+               indices[x]=x+1;
+           }
+               
+        
+           repetir=(indices.length>0);
+           x=0;
+           while (repetir){
+               n=aleatorio(0,indices.length-1);
+               auxiliar[x]=indices[n];
+               x++;
+               indices.splice(n,1);
+               repetir=(indices.length>0);               
+           }
+           
+           return auxiliar;
+       }//function      
+       
+    
+      var bingo=indices_aleatorios(50); 
+      var carton=indices_aleatorios(50);      
+      carton.splice(6);   
+         
+      var pos=0, salir=false, aciertos=0;
+      while (!salir){
+          if(carton.indexOf(bingo[pos])!=-1){
+              aciertos++;
+          }//if
+          
+          if(aciertos==6){
+              salir=true;
+          }else{
+              pos++;
+          }
+          
+      }//while
+     
+    document.writeln("bingo: "+bingo+"<br>");
+    document.writeln("carton: "+carton+"<br>");    
+    document.writeln("bolas extraidas: "+(pos+1)+"<br>");    
+    
+   </script>
+</body>
+</html>
