@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    
+    /*
+    5.	Crea un script que haciendo uso del objeto date nos informe de:
+        a.	Qué meses tienen 5 lunes del año 2016. 
+        b.	Qué meses tienen 5 lunes a partir de una función a la que se le pasa 
+        el año como parámetro. Siendo válida así la función para cualquier año. 
+
+    */
+    
+    function numLunes(year,mes){
+        var d = new Date(year,mes,1);    
+        var diaSemana=d.getDay();
+        var numLunes=0;    
+        var mesAuxiliar=d.getMonth();
+        var mes=d.getMonth();
+        var diaMes=d.getDate();        
+    
+        while(mesAuxiliar==mes){
+            if (diaSemana==1){
+                numLunes++;
+            }   
+            diaMes++;
+            d=new Date(year,mes,diaMes);
+            diaSemana=d.getDay();
+            mes=d.getMonth();        
+        }//while
+        return numLunes;
+    }//function
+    
+    
+    
+    function mesesCincoLunes(year){
+        
+        var nombreMes=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto",
+                       "Septiembre", "Octubre","Nomviembre","Diciembre"];        
+        var x, n, cadena="";
+        for (x=0; x<12; x++){
+            n=numLunes(year,x);
+            if (n==5){
+                cadena+="/ "+nombreMes[x];
+            }
+        }
+    
+        return cadena;
+    }//mesesCincoLunes
+    
+    
+    document.write("Meses con cinco Lunes 2016: "+mesesCincoLunes(2016)+"<br>");
+    document.write("Meses con cinco Lunes 2017: "+mesesCincoLunes(2017)+"<br>");
+    document.write("Meses con cinco Lunes 2018: "+mesesCincoLunes(2018)+"<br>");
+    
+    
+</script>
+</body>
+</html>
