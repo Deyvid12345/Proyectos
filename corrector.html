@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Corrector</title>
+</head>
+<body>
+<h4>Corrector !!</h4>    
+  <textarea rows="10" cols="50" id="area1"></textarea>
+  <br>  
+  <button type="button" id="b1" onclick="ejemplo()">Ejemplo</button>
+  <button type="button" id="b2" onclick="corrector()">Corrector</button>
+  <button type="button" id="b3" onclick="borrar()">Borrar</button>
+  <br><br>
+  <textarea rows="10" cols="50" id="area2"></textarea>
+  <br>
+  <div id="capa"></div>
+   <script>
+            
+       function ejemplo(cadena){           
+           var texto;
+           var r= document.getElementById("area1");
+           r.value=" esto es. un .parrafo de . \nprueba.";
+           
+       }//ejemplo
+      
+       function corrector(){
+           var r1= document.getElementById("area1");
+           var r2= document.getElementById("area2");
+           
+           var  cadena=r1.value.split("");
+           
+           cadena=despuesDePunto(cadena); // cadena es un array          
+           cadena=primeraLetra(cadena); // cadena es un string
+           r2.value=cadena;
+       }//convertir
+       
+              
+       function despuesDePunto(cadena){
+           
+           // "a".charCodeAt(); <-97 // "z".charCodeAt(); <-122
+           // "A".charCodeAt(); <-65 // "Z".charCodeAt(); <-90
+           
+           var n=cadena.length;           
+           
+           var x=0, repetir, codigo;
+           repetir=x<n?true:false;
+           
+           while (repetir){
+           
+              while (cadena[x]!="." && x<n){x++}//avanzar hasta el punto
+              
+              if (x<n) codigo=cadena[x].charCodeAt();
+               
+              while ((codigo<65 || codigo>122) && x<n) {                             
+                x++;
+                if (x<n) codigo=cadena[x];
+              } //avanzar hasta letra               
+              
+              if (x<n) cadena[x]=cadena[x].toUpperCase();
+             
+              if (x>=n) repetir=false;    
+           }//while
+           return cadena.join(""); // convierte el array en una cadena sin separador
+       }//despuesDePunto
+       
+       function primeraLetra(cadena){                      
+           
+           var n= cadena.length;           
+           var x=0, codigo;
+           
+           if (x<n) codigo=cadena.charAt(x).charCodeAt();               
+            while ((codigo<65 || codigo>122) && x<n) {              
+                x++;
+                if (x<n) codigo=cadena.charAt(x).charCodeAt();   
+            } //avanzar hasta letra   
+            if (x<n){
+                cadena=cadena.split("");
+                cadena[x]=cadena[x].toUpperCase(); 
+                cadena=cadena.join("");
+            } 
+              
+           return cadena;
+       }//primeraLetra
+       
+       function borrar(){
+           var r1= document.getElementById("area1");
+           var r2= document.getElementById("area2");
+           r1.value="";
+           r2.value="";
+       }
+       
+   </script>
+</body>
+</html>
