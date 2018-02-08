@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Refr&aacute;</title>
+</head>
+<body>
+  <textarea rows="4" cols="50" id="refran">Refranes !!</textarea>
+  <br>
+  <button type="button" id="b1" onclick="iniciar()">Iniciar</button>
+  <button type="button" id="b2" onclick="parar()" disabled>Parar</button>
+  <button type="button" id="b3" onclick="reanudar()" disabled>Reanudar</button>
+  <br><br><br>
+  <div id="capa"></div>
+   <script>
+       var cadena,cadena2, indices, indices;
+       var myvar, i;
+       
+       function aleatorio(min, max) {
+          var n;
+          n = Math.random() * (max - min) + min;
+          n = Math.round(n);
+          return n;
+       }       
+       
+       function indices_aleatorios(cadena){
+           var x, longitud=cadena.length, auxiliar;
+           var n, indices=[], auxiliar = new Array(longitud);  
+           for (x=0; x<longitud;x++){
+               indices[x]=x;
+           }
+               
+        
+           repetir=(indices.length>0);
+           x=0;
+           while (repetir){
+               n=aleatorio(0,indices.length-1);
+               auxiliar[x]=indices[n];
+               x++;
+               indices.splice(n,1);
+               repetir=(indices.length>0);               
+           }
+           
+           return auxiliar;
+       }//function      
+       
+       function guiones(cadena){
+           var x, n=cadena.length;
+           var auxiliar=[];
+           for (x=0; x<n; x++){
+               if (cadena[x]!=" ") auxiliar.push("-"); 
+               else auxiliar.push(cadena[x]);               
+           }//for
+           
+           return auxiliar;
+       }//guiones
+       
+       
+       function escribe(cadena){           
+           var r= document.getElementById("refran");
+           var letras="",x;
+           var longitud=cadena.length;
+           
+           for(x=0; x<longitud; x++){
+               letras+=cadena[x];
+           }
+           
+           r.value=letras;
+       }
+     
+       
+       function mostrarRefran1(){
+           
+           if (i<=cadena.length-1){
+            cadena2[indices[i]]=cadena[indices[i]];    
+            escribe(cadena2);
+            i++;    
+           } else {
+               clearTimeout(myvar);
+               escribe(cadena2);     
+               document.getElementById("capa").innerHTML="FIN";
+               
+               document.getElementById("b2").disabled=true;
+               document.getElementById("b3").disabled=true;
+           
+           }//if
+       }//mostrarRefran1
+       
+       function iniciar(){                              
+           i=0;
+           var b1, b2;
+           
+           var r= document.getElementById("refran");
+           r.value="";
+           document.getElementById("capa").innerHTML="";
+           reanudar();
+           
+           cadena="Haz bien y no mires a quien";       
+           indices=indices_aleatorios(cadena);       
+           cadena2=guiones(cadena);       
+           
+           b2=document.getElementById("b2");
+           b2.disabled=false;
+           
+           b3=document.getElementById("b3");
+           b3.disabled=false;
+    
+       }//iniciar
+       
+       function parar(){
+           clearTimeout(myvar);
+       }
+       
+       function reanudar(){                              
+           myvar=setInterval(mostrarRefran1,1000);
+       }//reanudar
+  
+       
+   </script>
+</body>
+</html>
